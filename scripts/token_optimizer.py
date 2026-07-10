@@ -10,9 +10,9 @@ from pathlib import Path
 from datetime import datetime
 
 VAULT = Path(__file__).resolve().parents[1]
-CANTIERI_DIR = VAULT / "CANTIERI"
-SESSIONI_DIR = VAULT / "sessioni"
-PROTOCOLLI_DIR = VAULT / "scoperte e processi"
+CANTIERI_DIR = VAULT / "worksites"
+SESSIONI_DIR = VAULT / "sessions"
+PROTOCOLLI_DIR = VAULT / "protocols"
 OUTPUT_FILE = VAULT / "context_summary.md"
 
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
@@ -53,7 +53,7 @@ def compile_state() -> str:
     summary.append("# Context Summary (Token-Optimized)")
     summary.append(f"Generated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
 
-    summary.append("## Active Worksites (CANTIERI)")
+    summary.append("## Active Worksites (worksites)")
     if CANTIERI_DIR.exists():
         cantieri = [p for p in CANTIERI_DIR.glob("*.md") if p.name != "README.md" and not p.name.startswith("Template_")]
         if not cantieri:
@@ -61,8 +61,8 @@ def compile_state() -> str:
         for p in sorted(cantieri):
             text = p.read_text(encoding="utf-8", errors="replace")
             fm = parse_frontmatter(text)
-            objective = extract_section(text, "Obiettivo")
-            next_steps = extract_section(text, "Prossimi passi")
+            objective = extract_section(text, "Objective")
+            next_steps = extract_section(text, "Next Steps")
             
             summary.append(f"### [[{p.stem}]] (Status: {fm.get('status', 'unknown')})")
             if fm.get("owners"):
@@ -73,19 +73,19 @@ def compile_state() -> str:
                 summary.append(f"**Next Steps**:\n{next_steps}")
             summary.append("")
     else:
-        summary.append("- CANTIERI folder not found.\n")
+        summary.append("- worksites folder not found.\n")
 
     summary.append("## Recent Session Logs (Last 3 Handoffs)")
     if SESSIONI_DIR.exists():
-        sessions = sorted(SESSIONI_DIR.glob("Sessione_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:3]
+        sessions = sorted(SESSIONI_DIR.glob("Session_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:3]
         if not sessions:
             summary.append("- No sessions logged.")
         for p in sessions:
             text = p.read_text(encoding="utf-8", errors="replace")
             fm = parse_frontmatter(text)
-            status = extract_section(text, "Stato finale")
-            next_steps = extract_section(text, "Prossimi passi")
-            where = extract_section(text, "Dove")
+            status = extract_section(text, "Final State")
+            next_steps = extract_section(text, "Next Steps")
+            where = extract_section(text, "Where")
             
             summary.append(f"### [[{p.stem}]] ({fm.get('date', 'no date')})")
             summary.append(f"- **Project**: {fm.get('project', 'unknown')}")
@@ -97,11 +97,11 @@ def compile_state() -> str:
                 summary.append(f"- **Entry Points**:\n{where}")
             summary.append("")
     else:
-        summary.append("- Sessioni folder not found.\n")
+        summary.append("- sessions folder not found.\n")
 
     summary.append("## Core Execution Protocols")
     if PROTOCOLLI_DIR.exists():
-        protocols = sorted(PROTOCOLLI_DIR.glob("Protocollo_*.md"))
+        protocols = sorted(PROTOCOLLI_DIR.glob("Protocol_*.md"))
         if not protocols:
             summary.append("- No protocols registered.")
         for p in protocols:
@@ -109,7 +109,7 @@ def compile_state() -> str:
             fm = parse_frontmatter(text)
             summary.append(f"- [[{p.stem}]] - Tag: {fm.get('tags', 'none')}")
     else:
-        summary.append("- scoperte e processi folder not found.")
+        summary.append("- protocols folder not found.")
         
     return "\n".join(summary)
 

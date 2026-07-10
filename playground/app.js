@@ -90,7 +90,7 @@ function initOnboarding() {
     <div style="max-width: 600px; margin: 40px auto; padding: 24px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px;">
       <h2 style="font-size: 22px; margin-bottom: 12px; font-weight: 700; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome to Upsilon Playground</h2>
       <p style="margin-bottom: 12px; font-size: 14px; color: var(--text-muted); line-height: 1.6;">
-        This is an interactive wiki playground and control panel designed for AI agent teams. You can view index links, manage cantieri, run logical checks, and spawn local swarm coding agents directly.
+        This is an interactive wiki playground and control panel designed for AI agent teams. You can view index links, manage worksites, run logical checks, and spawn local swarm coding agents directly.
       </p>
       <h3 style="font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 20px; margin-bottom: 8px;">Quick Actions:</h3>
       <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px;">
@@ -101,7 +101,7 @@ function initOnboarding() {
           <span style="color: var(--color-protocol);">●</span> Click **Guardrails Check** in the header to run Prolog-style logical audits.
         </li>
         <li style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
-          <span style="color: var(--color-cantiere);">●</span> Open the **Agent Swarm** tab on the right to dispatch tasks to Gemini or Codex.
+          <span style="color: var(--color-worksite);">●</span> Open the **Agent Swarm** tab on the right to dispatch tasks to Gemini or Codex.
         </li>
       </ul>
     </div>
@@ -126,12 +126,12 @@ function renderFileBrowser() {
   
   // Categorize
   const groups = {
-    'indici': [],
-    'CANTIERI': [],
-    'progetti': [],
-    'sessioni': [],
-    'scoperte e processi': [],
-    'informazioni generali': [],
+    'indices': [],
+    'worksites': [],
+    'projects': [],
+    'sessions': [],
+    'protocols': [],
+    'knowledge_base': [],
     'others': []
   };
 
@@ -145,22 +145,22 @@ function renderFileBrowser() {
   });
 
   const folderNames = {
-    'indici': 'Maps of Content (MOC)',
-    'CANTIERI': 'Cantieri (Active)',
-    'progetti': 'Projects (Stable)',
-    'sessioni': 'Sessions (Handoff)',
-    'scoperte e processi': 'Execution Protocols',
-    'informazioni generali': 'Knowledge Base',
+    'indices': 'Maps of Content (MOC)',
+    'worksites': 'Active Worksites',
+    'projects': 'Stable Projects',
+    'sessions': 'Sessions (Handoff)',
+    'protocols': 'Execution Protocols',
+    'knowledge_base': 'Knowledge Base',
     'others': 'Other Files'
   };
 
   const folderDots = {
-    'indici': 'dot-index',
-    'progetti': 'dot-project',
-    'CANTIERI': 'dot-cantiere',
-    'sessioni': 'dot-session',
-    'scoperte e processi': 'dot-protocol',
-    'informazioni generali': 'dot-kb',
+    'indices': 'dot-index',
+    'projects': 'dot-project',
+    'worksites': 'dot-worksite',
+    'sessions': 'dot-session',
+    'protocols': 'dot-protocol',
+    'knowledge_base': 'dot-kb',
     'others': 'dot-kb'
   };
 
@@ -525,7 +525,7 @@ async function renderGraph() {
     const colors = {
       'index': 'var(--color-index)',
       'project': 'var(--color-project)',
-      'cantiere': 'var(--color-cantiere)',
+      'worksite': 'var(--color-worksite)',
       'session': 'var(--color-session)',
       'protocol': 'var(--color-protocol)',
       'kb': 'var(--color-kb)',

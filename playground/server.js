@@ -63,12 +63,12 @@ function buildGraph() {
     let group = 'other';
     const folder = relPath.split(path.sep)[0];
     
-    if (folder === 'indici') group = 'index';
-    else if (folder === 'progetti') group = 'project';
-    else if (folder === 'CANTIERI') group = 'cantiere';
-    else if (folder === 'sessioni') group = 'session';
-    else if (folder === 'scoperte e processi') group = 'protocol';
-    else if (folder === 'informazioni generali') group = 'kb';
+    if (folder === 'indices') group = 'index';
+    else if (folder === 'projects') group = 'project';
+    else if (folder === 'worksites') group = 'worksite';
+    else if (folder === 'sessions') group = 'session';
+    else if (folder === 'protocols') group = 'protocol';
+    else if (folder === 'knowledge_base') group = 'kb';
 
     fileMap.set(name.toLowerCase(), { id: name, label: name, group, path: relPath });
     nodes.push({ id: name, label: name, group, path: relPath });

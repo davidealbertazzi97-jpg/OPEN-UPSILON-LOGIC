@@ -50,19 +50,19 @@ The vault is structured as a cognitive graph based on **WikiLinks (`[[Link]]`)**
 ├── LICENSE                   # Apache 2.0 / MIT License
 ├── README.md                 # This bilingual documentation
 ├── context_summary.md        # Compiled token-saving state summary (~150 tokens)
-├── indici/                   # Maps of Content (MOC) for semantic navigation
-│   ├── MOC_Architettura.md   # Grafo and topology of the vault
-│   ├── MOC_Cantieri.md       # Active worksites registry
-│   ├── MOC_Progetti.md       # Long-term stable/system projects index
-│   ├── MOC_Protocolli.md     # Guides and execution protocols registry
-│   └── MOC_Sessioni.md       # Chronological session handoff logs index
+├── indices/                   # Maps of Content (MOC) for semantic navigation
+│   ├── MOC_Architecture.md   # Grafo and topology of the vault
+│   ├── MOC_Worksites.md       # Active worksites registry
+│   ├── MOC_Projects.md       # Long-term stable/system projects index
+│   ├── MOC_Protocols.md     # Guides and execution protocols registry
+│   └── MOC_Sessions.md       # Chronological session handoff logs index
 ├── progetti/                 # stable system projects notes
-├── CANTIERI/                 # Active high-iteration worksites
+├── worksites/                 # Active high-iteration worksites
 │   ├── README.md             # Worksite sandbox isolation guidelines
-│   └── Template_Cantiere.md  # Template for initiating a new worksite
-├── sessioni/                 # Chronological handoff notes
-├── scoperte e processi/      # Reusable execution protocols and guides
-├── informazioni generali/    # Stable knowledge base (e.g. Integrazione_Agenti.md)
+│   └── Template_Worksite.md  # Template for initiating a new worksite
+├── sessions/                 # Chronological handoff notes
+├── protocols/      # Reusable execution protocols and guides
+├── knowledge_base/    # Stable knowledge base (e.g. Agent_Integration.md)
 ├── dump/                     # Unstructured temporary logs and notes (Git ignored)
 └── scripts/                  # Logical verification & swarm orchestrator scripts
     ├── agents.json           # Swarm agents CLI command configuration
@@ -78,7 +78,7 @@ The vault is structured as a cognitive graph based on **WikiLinks (`[[Link]]`)**
 ### 1. Logical Validator (`vault_guardrails.py`)
 Acts as a Prolog-style inference engine. It maps markdown files as logical predicates (e.g., `cantiere(id, status)`, `session(id, project)`) and runs consistency checks:
 - **No Orphan Nodes**: Every markdown file (except session logs and dumps) must be linked by at least one MOC.
-- **Worksite Contract**: Every file in `CANTIERI/` must have frontmatter `type: project`, status, and standard headings (`## Obiettivo`, `## Perimetro`, `## Lane`, `## Prossimi passi`).
+- **Worksite Contract**: Every file in `worksites/` must have frontmatter `type: project`, status, and standard headings (`## Obiettivo`, `## Perimetro`, `## Lane`, `## Prossimi passi`).
 - **Handoff Contract**: Every recent session must specify where the next agent should look.
 
 Run it:
@@ -120,10 +120,10 @@ The **Upsilon Playground** is a **dependency-free, open-source** local web appli
 |                            Upsilon Playground Web UI                          |
 +----------------------+------------------------------+-----------------------+
 |  [Sidebar]           |  [Markdown Editor]           |  [D3 WikiLink Graph]  |
-|  - indici/           |                              |                       |
+|  - indices/           |                              |                       |
 |  - progetti/         |  Edit note contents          |  Visualizes floating  |
-|  - CANTIERI/         |  & write double-click        |  nodes. Click to      |
-|  - sessioni/         |  [[WikiLinks]]               |  navigate notes.      |
+|  - worksites/         |  & write double-click        |  nodes. Click to      |
+|  - sessions/         |  [[WikiLinks]]               |  navigate notes.      |
 |                      +------------------------------+-----------------------+
 |                      |  [Markdown Preview]          |  [Agent Swarm Panel]  |
 |                      |                              |  - Recommend agent    |
@@ -313,19 +313,19 @@ Il vault è strutturato come un grafo cognitivo basato su **WikiLinks (`[[Link]]
 ├── LICENSE                   # Licenza Apache 2.0 / MIT
 ├── README.md                 # Questo documento di onboarding bilingue
 ├── context_summary.md        # Sommario compresso compilato (~150 token)
-├── indici/                   # Mappe dei Contenuti (MOC) per la navigazione semantica
-│   ├── MOC_Architettura.md   # Grafo e topology del vault
-│   ├── MOC_Cantieri.md       # Tracciatore dei progetti in sviluppo attivo
-│   ├── MOC_Progetti.md       # Indice dei progetti stabili di sistema
-│   ├── MOC_Protocolli.md     # Indice delle guide e dei processi
-│   └── MOC_Sessioni.md       # Indice cronologico dei log di sessione
+├── indices/                   # Mappe dei Contenuti (MOC) per la navigazione semantica
+│   ├── MOC_Architecture.md   # Grafo e topology del vault
+│   ├── MOC_Worksites.md       # Tracciatore dei progetti in sviluppo attivo
+│   ├── MOC_Projects.md       # Indice dei progetti stabili di sistema
+│   ├── MOC_Protocols.md     # Indice delle guide e dei processi
+│   └── MOC_Sessions.md       # Indice cronologico dei log di sessione
 ├── progetti/                 # Schede descrittive dei progetti stabili
-├── CANTIERI/                 # Cartelle di lavoro attivo ad alta iterazione
+├── worksites/                 # Cartelle di lavoro attivo ad alta iterazione
 │   ├── README.md             # Regole per l'isolamento dei cantieri
-│   └── Template_Cantiere.md  # Modello per avviare un nuovo cantiere
-├── sessioni/                 # Log di handoff che descrivono stato finale e prossimi passi
-├── scoperte e processi/      # Guide operative e protocolli riutilizzabili
-├── informazioni generali/    # KB stabile (es: Integrazione_Agenti.md)
+│   └── Template_Worksite.md  # Modello per avviare un nuovo cantiere
+├── sessions/                 # Log di handoff che descrivono stato finale e prossimi passi
+├── protocols/      # Guide operative e protocolli riutilizzabili
+├── knowledge_base/    # KB stabile (es: Agent_Integration.md)
 ├── dump/                     # Note temporanee, log e scratchpad (ignorati da Git)
 └── scripts/                  # Motori logici e di orchestrazione
     ├── agents.json           # Configurazione CLI degli agenti dello sciame
@@ -339,9 +339,9 @@ Il vault è strutturato come un grafo cognitivo basato su **WikiLinks (`[[Link]]
 ## ⚙️ I Tre Pilastri Logici
 
 ### 1. Il Validatore Logico (`vault_guardrails.py`)
-Funge da motore di inferenza Prolog-style. Mappa le note markdown come predicati logici (es: `cantiere(id, status)`, `session(id, project)`) e verifica che le regole di coerenza siano soddisfatte:
+Funge da motore di inferenza Prolog-style. Mappa le note markdown come predicati logici (es: `worksite(id, status)`, `session(id, project)`) e verifica che le regole di coerenza siano soddisfatte:
 - **Nessuna nota orfana**: Qualsiasi file markdown (fuori da sessioni e dump) deve essere linkato da almeno un MOC.
-- **Contratto del Cantiere**: Ogni file in `CANTIERI/` deve avere frontmatter `type: project` e contenere le intestazioni standard (`## Obiettivo`, `## Perimetro`, `## Lane`, `## Prossimi passi`).
+- **Contratto del Cantiere**: Ogni file in `worksites/` deve avere frontmatter `type: project` e contenere le intestazioni standard in inglese (`## Objective`, `## Current State`, `## Perimeter and Isolation`, `## Open Lanes`, `## Next Steps`, `## Linked Sessions`).
 - **Contratto di Handoff**: Ogni sessione recente deve specificare dove deve guardare l'agente successivo.
 
 Esecuzione:

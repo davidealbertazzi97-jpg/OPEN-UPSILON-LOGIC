@@ -1,4 +1,4 @@
-# Informazioni Generali
+# Knowledge Base
 
 This folder contains stable knowledge base (KB) nodes, facts, checklists, agent specifications, and onboarding maps.
 

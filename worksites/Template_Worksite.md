@@ -1,32 +1,32 @@
 ---
 type: project
 status: active
-owners: [Lo_Sciame_AI]
-tags: [cantiere, progetto, parallelismo]
+owners: [Swarm_AI]
+tags: [worksite, project, parallel]
 ---
-# Template Cantiere
+# Template Worksite
 
-Model note to open a new active project in `CANTIERI/`. Copy this structure, then replace its details.
+Model note to open a new active project in `worksites/`. Copy this structure, then replace its details.
 
-## Obiettivo
+## Objective
 - Concrete output or goal this worksite aims to achieve.
 
-## Stato attuale
+## Current State
 - Verified current status (not desired).
 - Code, documentation, active branches, and known blockers.
 
-## Perimetro e isolamento
-- Nodo memoria: [[Template_Cantiere]]
-- Repo/path codice: `/home/user/project-repo`
-- Path consentiti: `/home/user/project-repo`, `/home/user/obsidian-vault`
-- Path vietati: `/home/user/other-sensitive-repos`
+## Perimeter and Isolation
+- Memory Node: [[Template_Worksite]]
+- Repo/Path Code: `/home/user/project-repo`
+- Allowed Paths: `/home/user/project-repo`, `/home/user/vault`
+- Forbidden Paths: `/home/user/other-sensitive-repos`
 - Git: branch or worktree specifications
-- Env/segreti: isolated environments, forbidden reuse of other projects env files
+- Env/Secrets: isolated environments, forbidden reuse of other projects env files
 - Runtime: container names, host ports, databases
-- Sessioni: prefix `Sessione_YYYY-MM-DD_<ProjectName>_...`
+- Sessions: prefix `Session_YYYY-MM-DD_<ProjectName>_...`
 
-## Lane aperte
-| Lane | Owner | Scope | Stato | Bloccante |
+## Open Lanes
+| Lane | Owner | Scope | Status | Blocker |
 | --- | --- | --- | --- | --- |
 | product | TBD | Framing, UX, user value | pending | no |
 | backend | TBD | APIs, data, test suite | pending | yes |
@@ -34,17 +34,17 @@ Model note to open a new active project in `CANTIERI/`. Copy this structure, the
 | ops | TBD | Deployment, git structure | pending | yes |
 | memory | TBD | MOCs, session logs | pending | yes |
 
-## Decisioni
+## Decisions
 - Irreversible or high-cost decisions.
 
-## Blocchi
+## Blockers
 - Technical or environment blocks.
 
-## Prossimi passi
+## Next Steps
 - Recommended entry point for the next agent.
 
-## Sessioni collegate
+## Linked Sessions
 - List chronological sessions related to this project here.
 
-## Protocolli collegati
-- [[Protocollo_Isolamento_Cantieri]]
+## Linked Protocols
+- [[Protocol_Worksite_Isolation]]

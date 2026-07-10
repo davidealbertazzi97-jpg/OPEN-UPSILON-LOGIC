@@ -14,10 +14,10 @@ from typing import Iterable
 
 # Vault root folder is the parent of the scripts folder
 VAULT = Path(__file__).resolve().parents[1]
-MOC_DIR = VAULT / "indici"
-CANTIERI_DIR = VAULT / "CANTIERI"
-SESSIONI_DIR = VAULT / "sessioni"
-PROTOCOLLI_DIR = VAULT / "scoperte e processi"
+MOC_DIR = VAULT / "indices"
+CANTIERI_DIR = VAULT / "worksites"
+SESSIONI_DIR = VAULT / "sessions"
+PROTOCOLLI_DIR = VAULT / "protocols"
 
 WIKILINK_RE = re.compile(r"\[\[([^\]|#]+)(?:[#|][^\]]*)?\]\]")
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
@@ -149,16 +149,16 @@ def check_git(report: Report, strict: bool) -> None:
         )
 
 
-def check_cantieri(report: Report, links_by_moc: dict[str, set[str]]) -> None:
-    cantiere_links = links_by_moc.get("MOC_Cantieri", set())
-    progetti_links = links_by_moc.get("MOC_Progetti", set())
+def check_worksites(report: Report, links_by_moc: dict[str, set[str]]) -> None:
+    worksite_links = links_by_moc.get("MOC_Worksites", set())
+    projects_links = links_by_moc.get("MOC_Projects", set())
     required = [
-        "## Obiettivo",
-        "## Stato attuale",
-        "## Perimetro e isolamento",
-        "## Lane aperte",
-        "## Prossimi passi",
-        "## Sessioni collegate",
+        "## Objective",
+        "## Current State",
+        "## Perimeter and Isolation",
+        "## Open Lanes",
+        "## Next Steps",
+        "## Linked Sessions",
     ]
     if CANTIERI_DIR.exists():
         for path in sorted(CANTIERI_DIR.glob("*.md")):
@@ -167,35 +167,35 @@ def check_cantieri(report: Report, links_by_moc: dict[str, set[str]]) -> None:
             nid = note_id(path)
             text = read_text(path)
             fm = parse_frontmatter(text)
-            report.add_fact("cantiere", nid, True)
+            report.add_fact("worksite", nid, True)
             if fm.get("type") != "project":
-                report.add("conflict", "cantiere_type", nid, "frontmatter type must be 'project'", "cantiere_contract")
+                report.add("conflict", "worksite_type", nid, "frontmatter type must be 'project'", "worksite_contract")
             if "status" not in fm:
-                report.add("conflict", "cantiere_status_missing", nid, "frontmatter status is missing", "cantiere_contract")
-            if nid not in cantiere_links:
-                report.add("conflict", "cantiere_not_in_moc", nid, "cantiere is not linked in MOC_Cantieri", "cantiere_moc_link")
-            if "MOC_Cantieri" not in wikilinks(text):
-                report.add("warning", "missing_backlink", nid, "missing return link to [[MOC_Cantieri]]", "cantiere_backlink")
-            require_sections(report, path, required, "cantiere_required_sections")
+                report.add("conflict", "worksite_status_missing", nid, "frontmatter status is missing", "worksite_contract")
+            if nid not in worksite_links:
+                report.add("conflict", "worksite_not_in_moc", nid, "worksite is not linked in MOC_Worksites", "worksite_moc_link")
+            if "MOC_Worksites" not in wikilinks(text):
+                report.add("warning", "missing_backlink", nid, "missing return link to [[MOC_Worksites]]", "worksite_backlink")
+            require_sections(report, path, required, "worksite_required_sections")
 
 
 def check_sessions(report: Report, links_by_moc: dict[str, set[str]]) -> None:
-    session_links = links_by_moc.get("MOC_Sessioni", set())
+    session_links = links_by_moc.get("MOC_Sessions", set())
     required = [
-        "## Obiettivo",
-        "## File",
-        "## Stato finale",
-        "## Prossimi passi",
-        "## Dove",
+        "## Objective",
+        "## Files",
+        "## Final State",
+        "## Next Steps",
+        "## Where",
     ]
     if SESSIONI_DIR.exists():
-        recent = sorted(SESSIONI_DIR.glob("Sessione_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:25]
+        recent = sorted(SESSIONI_DIR.glob("Session_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:25]
         for path in recent:
             nid = note_id(path)
             text = read_text(path)
             report.add_fact("session", nid, True)
             if nid not in session_links:
-                report.add("warning", "session_not_in_moc", nid, "session is not linked in MOC_Sessioni", "session_moc_link")
+                report.add("warning", "session_not_in_moc", nid, "session is not linked in MOC_Sessions", "session_moc_link")
             if not parse_frontmatter(text):
                 report.add("warning", "session_no_frontmatter", nid, "frontmatter is missing", "session_frontmatter")
             # Legacy or relaxed heading validation (matching prefixes)
@@ -211,20 +211,20 @@ def check_sessions(report: Report, links_by_moc: dict[str, set[str]]) -> None:
 
 
 def check_protocols(report: Report, links_by_moc: dict[str, set[str]]) -> None:
-    protocol_links = links_by_moc.get("MOC_Protocolli", set())
+    protocol_links = links_by_moc.get("MOC_Protocols", set())
     if PROTOCOLLI_DIR.exists():
-        for path in sorted(PROTOCOLLI_DIR.glob("Protocollo_*.md")):
+        for path in sorted(PROTOCOLLI_DIR.glob("Protocol_*.md")):
             nid = note_id(path)
             report.add_fact("protocol", nid, True)
             if nid not in protocol_links:
-                report.add("warning", "protocol_not_in_moc", nid, "protocol is not linked in MOC_Protocolli", "protocol_moc_link")
+                report.add("warning", "protocol_not_in_moc", nid, "protocol is not linked in MOC_Protocols", "protocol_moc_link")
 
 
 def check_orphans(report: Report, links_by_moc: dict[str, set[str]]) -> None:
     linked = set().union(*links_by_moc.values()) if links_by_moc else set()
     for path in markdown_files():
         rel = path.relative_to(VAULT)
-        if rel.parts[0] in {"sessioni", "dump"}:
+        if rel.parts[0] in {"sessions", "dump"}:
             continue
         if path.name in {"README.md", "GEMINI.md", "LICENSE", "context_summary.md"}:
             continue
@@ -233,7 +233,7 @@ def check_orphans(report: Report, links_by_moc: dict[str, set[str]]) -> None:
         has_metadata = bool(parse_frontmatter(text)) or "Tags:" in text
         if not has_metadata:
             report.add("warning", "missing_metadata", str(rel), "note without frontmatter or Tags", "node_metadata")
-        if rel.parts[0] not in {"indici", "CANTIERI"} and nid not in linked:
+        if rel.parts[0] not in {"indices", "worksites"} and nid not in linked:
             report.add("warning", "possibly_orphan", str(rel), "note not linked by any MOC", "no_orphan_nodes")
 
 
@@ -241,7 +241,7 @@ def build_report(strict: bool) -> Report:
     report = Report()
     links_by_moc = moc_links()
     check_git(report, strict)
-    check_cantieri(report, links_by_moc)
+    check_worksites(report, links_by_moc)
     check_sessions(report, links_by_moc)
     check_protocols(report, links_by_moc)
     check_orphans(report, links_by_moc)

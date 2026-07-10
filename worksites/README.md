@@ -1,9 +1,9 @@
-# Cantieri
+# Worksites
 
 This directory holds active worksites (high-iteration project notes).
 
-Every active cantiere must:
+Every active worksite must:
 - Have frontmatter with `type: project` and a `status`.
-- Follow the structure defined in `Template_Cantiere.md`.
-- Be linked from `indici/MOC_Cantieri.md`.
+- Follow the structure defined in `Template_Worksite.md`.
+- Be linked from `indices/MOC_Worksites.md`.
 - Declare allowed/forbidden paths to ensure sandbox isolation.

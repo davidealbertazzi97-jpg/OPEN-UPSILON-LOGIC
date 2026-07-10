@@ -1,22 +1,22 @@
 # Context Summary (Token-Optimized)
-Generated at: 2026-07-11 00:45:26
+Generated at: 2026-07-11 00:48:49
 
-## Active Worksites (CANTIERI)
+## Active Worksites (worksites)
 - No active worksites found.
 ## Recent Session Logs (Last 3 Handoffs)
-### [[Sessione_Init_Vault_Upsilon]] (2026-07-10)
-- **Project**: [[MOC_Architettura]]
-- **Final Status**: - Struttura del vault interamente scaffoldata.  - Pronta per l'inclusione degli script logici di guardrail, ottimizzazione dei token ed orchestrazione swarm.
+### [[Session_Init_Vault_Upsilon]] (2026-07-10)
+- **Project**: [[MOC_Architecture]]
+- **Final Status**: - Vault structure fully scaffolded. - Ready for logic validation guardrails, token optimizer, and swarm orchestrator scripts.
 - **Next Steps**:
-- Scrivere gli script Python in `scripts/`:
-  - `vault_guardrails.py` (checker logico Prolog-style)
-  - `token_optimizer.py` (compilatore di stato ridotto per risparmio token)
-  - `swarm_orchestrator.py` (orchestratore dei runner locali)
+- Write the Python scripts in `scripts/`:
+  - `vault_guardrails.py` (Prolog-style logic checker)
+  - `token_optimizer.py` (token-saving state summarizer)
+  - `swarm_orchestrator.py` (local swarm runner)
 - **Entry Points**:
 - [README.md](../README.md)
-- [indici/MOC_Architettura.md](../indici/MOC_Architettura.md)
+- [indices/MOC_Architecture.md](../indices/MOC_Architecture.md)
 
 ## Core Execution Protocols
-- [[Protocollo_Guardrail_Logici]] - Tag: [protocollo, logica, guardrails, antiallucinazione]
-- [[Protocollo_Isolamento_Cantieri]] - Tag: [protocollo, cantieri, isolamento, routing]
-- [[Protocollo_Orchestrazione_Swarm]] - Tag: [protocollo, swarm, orchestrazione]
+- [[Protocol_Logical_Guardrails]] - Tag: [protocol, logic, guardrails, anti-hallucination]
+- [[Protocol_Swarm_Orchestration]] - Tag: [protocol, swarm, orchestration]
+- [[Protocol_Worksite_Isolation]] - Tag: [protocol, worksites, isolation, routing]

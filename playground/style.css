@@ -17,7 +17,7 @@
   
   --color-index: #06B6D4;
   --color-project: #10B981;
-  --color-cantiere: #F59E0B;
+  --color-worksite: #F59E0B;
   --color-session: #8B5CF6;
   --color-protocol: #EC4899;
   --color-kb: #6B7280;
@@ -213,7 +213,7 @@ h1 {
 
 .dot-index { background-color: var(--color-index); }
 .dot-project { background-color: var(--color-project); }
-.dot-cantiere { background-color: var(--color-cantiere); }
+.dot-worksite { background-color: var(--color-worksite); }
 .dot-session { background-color: var(--color-session); }
 .dot-protocol { background-color: var(--color-protocol); }
 .dot-kb { background-color: var(--color-kb); }
