@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omega Playground — AI Agent Workspace</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Marked for Markdown Parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- D3.js for Interactive Graph -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">Ω</div>
+      <h1>Omega Playground</h1>
+      <span style="color: var(--text-muted); font-size: 12px; font-weight: 500; background: rgba(255,255,255,0.05); padding: 2px 8px; border-radius: 4px;">v1.0.0</span>
+    </div>
+    <div class="nav-controls">
+      <button class="btn" id="btn-run-guardrails">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Guardrails Check
+      </button>
+      <button class="btn" id="btn-run-optimizer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        Compile Summary
+      </button>
+      <button class="btn btn-primary" id="btn-save-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save Note
+      </button>
+    </div>
+  </header>
+
+  <!-- Application Layout Workspace -->
+  <div class="app-container">
+
+    <!-- Left Sidebar: File Browser -->
+    <aside class="sidebar">
+      <div class="search-box">
+        <input type="text" class="search-input" id="search-files" placeholder="Search files...">
+      </div>
+      <div id="file-browser-container">
+        <!-- Dynanically populated by app.js -->
+      </div>
+    </aside>
+
+    <!-- Center Pane: Markdown Editor & Preview -->
+    <main class="workspace">
+      <div class="workspace-header">
+        <div class="current-path" id="active-filename">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Select a note from the sidebar</span>
+        </div>
+        <div class="workspace-actions">
+          <button class="btn" id="btn-toggle-view" style="padding: 6px 12px; font-size: 12px;">Toggle Preview</button>
+        </div>
+      </div>
+      
+      <div class="editor-container">
+        <div class="editor-pane" id="editor-pane">
+          <textarea class="editor-textarea" id="editor-area" placeholder="Type Markdown here... Use [[WikiLinks]] to connect notes."></textarea>
+        </div>
+        <div class="preview-pane" id="preview-pane">
+          <div style="color: var(--text-muted); text-align: center; margin-top: 40px;">Select a note to view rendered markdown preview.</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right Side Panel: Interactive Graph & Agent Swarm Panel -->
+    <section class="sidepanel">
+      <div class="tab-bar">
+        <div class="tab-item active" data-tab="tab-graph">Wiki Graph</div>
+        <div class="tab-item" data-tab="tab-swarm">Agent Swarm</div>
+        <div class="tab-item" data-tab="tab-guardrails">Guardrails</div>
+        <div class="tab-item" data-tab="tab-optimizer">Optimizer</div>
+      </div>
+
+      <!-- Tab: Graph Visualizer -->
+      <div class="tab-content active" id="tab-graph">
+        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Interactive force-directed graph of WikiLinks. Click nodes to navigate.
+        </div>
+        <div id="graph-container">
+          <svg id="graph-svg" width="100%" height="100%"></svg>
+        </div>
+      </div>
+
+      <!-- Tab: Agent Swarm Panel -->
+      <div class="tab-content" id="tab-swarm">
+        <div class="swarm-panel">
+          <div class="form-group">
+            <label class="form-label">Task Recommendation Checker</label>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" class="form-input" id="swarm-task-query" placeholder="Describe the task to get recommendation...">
+              <button class="btn" id="btn-swarm-recommend" style="white-space: nowrap;">Recommend</button>
+            </div>
+            <div id="swarm-rec-output" style="font-size: 12px; color: var(--text-muted); padding: 6px; background: rgba(0,0,0,0.2); border-radius: 4px; display: none;"></div>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-color); margin: 6px 0;"></div>
+
+          <div class="form-group">
+            <label class="form-label">Launch Swarm Agent Slot</label>
+            <select class="form-select" id="swarm-agent-select">
+              <option value="gemini">Gemini CLI (visual-polish, UI, copy)</option>
+              <option value="goose">Goose (diagnostics, ops, experiments)</option>
+              <option value="opencode">OpenCode (exploration, documentation)</option>
+              <option value="codex">Codex CLI (disciplined backend/security coding)</option>
+              <option value="copilot">GitHub Copilot CLI (native issues/PRs)</option>
+              <option value="cursor">Cursor Agent CLI (interactive editor tasking)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Project Workspace Path</label>
+            <input type="text" class="form-input" id="swarm-project-path" placeholder="Default is current vault directory...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Task Instructions</label>
+            <textarea class="form-textarea" id="swarm-task-desc" placeholder="Enter detailed coding task instructions for the agent..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Extra Requirements (Optional)</label>
+            <input type="text" class="form-input" id="swarm-task-extra" placeholder="e.g., Do not touch packages.json">
+          </div>
+
+          <button class="btn btn-primary" id="btn-swarm-dispatch" style="justify-content: center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Dispatch Agent Run
+          </button>
+
+          <!-- Swarm Console Logger -->
+          <div class="console-panel">
+            <div class="console-header">
+              <span>Runner Console Log</span>
+              <span id="swarm-run-status" style="color: #F59E0B; font-weight: bold;">Idle</span>
+            </div>
+            <div class="console-body" id="swarm-console-body">Logs will output here when an agent starts...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Guardrails Findings -->
+      <div class="tab-content" id="tab-guardrails">
+        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+          <span>Vault completeness and logical rules status</span>
+          <span id="guardrail-status-badge" class="badge badge-info">Unchecked</span>
+        </div>
+        <div id="guardrails-list" style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="color: var(--text-muted); text-align: center; margin-top: 40px;">Click 'Guardrails Check' in header to run validation.</div>
+        </div>
+      </div>
+
+      <!-- Tab: Optimizer Compiler -->
+      <div class="tab-content" id="tab-optimizer">
+        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Compiled token-saving state summary of the Obsidian vault.
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 12px;">
+          <div style="font-size: 12px; color: var(--text-muted); background: rgba(0,0,0,0.2); padding: 8px; border-radius: 4px;" id="opt-stats">Estimated Size: Uncompiled</div>
+          <pre style="flex: 1; background: #05070C; border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; overflow-y: auto; font-family: var(--font-mono); font-size: 11px; line-height: 1.5; color: #D1D5DB; white-space: pre-wrap;" id="opt-summary-code">Click 'Compile Summary' to build context_summary.md...</pre>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
