@@ -3,11 +3,11 @@
 
 ---
 
-## 👁️ Visione & Origine del Progetto
+## 👁️ Vision & Origin of the Project
 
-**Vault Omega** è un progetto sperimentale nato dal desiderio di fondere la **logica pura della programmazione logica dichiarativa (Prolog-style)** con la potenza predittiva dei **modelli linguistici statistici (LLM)**. 
+**Vault Omega** is an experimental project born from the desire to merge **pure logic programming (Prolog-style)** with the predictive power of **statistical Large Language Models (LLMs)**.
 
-I moderni agenti di coding (come Claude Code, Cursor, Codex, Antigravity) operano su basi statistiche, il che li rende inclini all'allucinazione, alla deriva del contesto e a consumi esponenziali di token. Vault Omega introduce un'infrastruttura **agnostica, auto-espandibile e deterministica** per governare la memoria collettiva dello sciame e consentire la collaborazione parallela di più agenti autonomi, eliminando la dipendenza da un singolo IDE o provider proprietario.
+Modern coding agents (such as Claude Code, Cursor, Codex, Antigravity) operate on statistical probabilities, making them prone to hallucinations, context drift, and exponential token consumption. Vault Omega introduces an **agnostic, self-expanding, and deterministic** infrastructure to govern the swarm's collective memory and enable parallel collaboration of multiple autonomous agents, eliminating dependency on a single proprietary IDE or environment.
 
 ```text
        ┌────────────────────────────────────────────────────────┐
@@ -31,6 +31,149 @@ I moderni agenti di coding (come Claude Code, Cursor, Codex, Antigravity) operan
 
 ---
 
+## 🚀 Core Goals
+
+1. **Drastic Reduction of Hallucinations**: Replacing statistical heuristics with deterministic logical checks. An agent cannot declare a task completed unless it satisfies the structural contract of the vault.
+2. **Context Savings (Token Optimizer)**: Reducing up to 95% of tokens wasted in exploratory file scans, thanks to the dynamic compilation of the active state into a single compressed file (`context_summary.md`).
+3. **Parallel Multi-Agent Collaboration**: A portable orchestrator script capable of recommending and routing sub-tasks to specialized agent slots (`gemini`, `goose`, `opencode`, `codex`, `copilot`, `cursor`).
+4. **IDE & Provider Agnostic**: A decentralized infrastructure running locally on the developer's machine, accessible via filesystem, REST API, or MCP (Model Context Protocol).
+5. **Autonomous Logical Self-Expansion**: Agents themselves can write new protocols and modify Python validation scripts to introduce new rules that apply to all future swarm runs.
+
+---
+
+## 📁 Archive & Vault Structure
+
+The vault is structured as a cognitive graph based on **WikiLinks (`[[Link]]`)** and divided into specific compartments:
+
+```text
+├── .gitignore
+├── LICENSE                   # Apache 2.0 / MIT License
+├── README.md                 # This bilingual documentation
+├── context_summary.md        # Compiled token-saving state summary (~150 tokens)
+├── indici/                   # Maps of Content (MOC) for semantic navigation
+│   ├── MOC_Architettura.md   # Grafo and topology of the vault
+│   ├── MOC_Cantieri.md       # Active worksites registry
+│   ├── MOC_Progetti.md       # Long-term stable/system projects index
+│   ├── MOC_Protocolli.md     # Guides and execution protocols registry
+│   └── MOC_Sessioni.md       # Chronological session handoff logs index
+├── progetti/                 # stable system projects notes
+├── CANTIERI/                 # Active high-iteration worksites
+│   ├── README.md             # Worksite sandbox isolation guidelines
+│   └── Template_Cantiere.md  # Template for initiating a new worksite
+├── sessioni/                 # Chronological handoff notes
+├── scoperte e processi/      # Reusable execution protocols and guides
+├── informazioni generali/    # Stable knowledge base (e.g. Integrazione_Agenti.md)
+├── dump/                     # Unstructured temporary logs and notes (Git ignored)
+└── scripts/                  # Logical verification & swarm orchestrator scripts
+    ├── agents.json           # Swarm agents CLI command configuration
+    ├── vault_guardrails.py   # Prolog-style validator in Python
+    ├── token_optimizer.py    # Cognitive state compiler and token saver
+    └── swarm_orchestrator.py # Multi-agent dispatching CLI interface
+```
+
+---
+
+## ⚙️ The Three Logical Pillars
+
+### 1. Logical Validator (`vault_guardrails.py`)
+Acts as a Prolog-style inference engine. It maps markdown files as logical predicates (e.g., `cantiere(id, status)`, `session(id, project)`) and runs consistency checks:
+- **No Orphan Nodes**: Every markdown file (except session logs and dumps) must be linked by at least one MOC.
+- **Worksite Contract**: Every file in `CANTIERI/` must have frontmatter `type: project`, status, and standard headings (`## Obiettivo`, `## Perimetro`, `## Lane`, `## Prossimi passi`).
+- **Handoff Contract**: Every recent session must specify where the next agent should look.
+
+Run it:
+```bash
+python3 scripts/vault_guardrails.py --strict
+```
+
+### 2. Token Saving (`token_optimizer.py`)
+Recursively scans the vault, filters out non-essential info, and compiles the active state into a single compressed markdown block (`context_summary.md`).
+- **The Math**: An agent scanning 10 vault notes to align consumes about **4000+ tokens**. Reading only `context_summary.md` yields the same alignment in just **150 tokens** (95% savings).
+
+Run it:
+```bash
+python3 scripts/token_optimizer.py
+```
+
+### 3. Swarm Orchestrator (`swarm_orchestrator.py`)
+Provides a portable CLI to allow a lead agent (e.g. Codex) to coordinate and launch other agents in parallel in isolated workspaces:
+- **Recommendation**: Suggests the best agent for a task by parsing keywords (e.g., `gemini` for UI/UX, `codex` for backend/security).
+- **Dispatch**: Spawns the worker agent in the background, captures stdout to a log file, and runs guardrails upon completion.
+
+Run it:
+```bash
+# Get agent recommendation
+python3 scripts/swarm_orchestrator.py recommend --task "Fix styling bugs"
+
+# Dispatch task to agent
+python3 scripts/swarm_orchestrator.py dispatch --agent gemini --project /path/to/project --task "Improve CSS styling"
+```
+
+---
+
+## 🖥️ Web UI: Omega Playground
+
+The **Omega Playground** is a **dependency-free, open-source** local web application located in `playground/`.
+
+```text
++-----------------------------------------------------------------------------+
+|                            Omega Playground Web UI                          |
++----------------------+------------------------------+-----------------------+
+|  [Sidebar]           |  [Markdown Editor]           |  [D3 WikiLink Graph]  |
+|  - indici/           |                              |                       |
+|  - progetti/         |  Edit note contents          |  Visualizes floating  |
+|  - CANTIERI/         |  & write double-click        |  nodes. Click to      |
+|  - sessioni/         |  [[WikiLinks]]               |  navigate notes.      |
+|                      +------------------------------+-----------------------+
+|                      |  [Markdown Preview]          |  [Agent Swarm Panel]  |
+|                      |                              |  - Recommend agent    |
+|                      |  Live HTML rendering         |  - Dispatch worker    |
+|                      |  with clickable WikiLinks    |  - Real-time terminal |
++----------------------+------------------------------+-----------------------+
+```
+
+### Features
+- **D3.js Graph Visualizer**: Interactive force-directed link graph showing connections between notes. Clicking a node opens it in the editor.
+- **Markdown Editor & Preview**: Side-by-side editor converting `[[WikiLinks]]` into clickable navigation nodes in the preview pane.
+- **Swarm Runner Terminal**: Control center to test agent readiness, request recommendations, dispatch workers, and stream console output in real-time.
+- **Zero Install**: The server (`server.js`) uses only standard Node.js/Bun modules. No external packages to install.
+
+Run it:
+```bash
+node playground/server.js
+```
+Then navigate to **`http://localhost:8080`**.
+
+---
+
+## 📜 License & Third-Party Compliance
+
+The project is dual-licensed under the **Apache License 2.0** and the **MIT License**. It is free to use, modify, and distribute for both private and commercial purposes.
+
+### Third-Party Software (Licenses Respected):
+- **D3.js** (Graph visualization): **ISC License** (compatible with Apache/MIT).
+- **Marked.js** (Markdown parser): **MIT License** (compatible).
+- **Python 3** (Logic Engines): **PSF License** (compatible).
+- **Node.js / Bun** (Runtime server): **MIT/BSD Licenses** (compatible).
+
+No proprietary or closed-source code (including commercial Obsidian sources) is included in this repository.
+
+---
+---
+
+# Vault Omega & Playground (Italiano)
+> **Sandbox Sperimentale per Swarm Multi-Agente Agnostici e Memoria Cognitiva Fondata sulla Logica**
+
+---
+
+## 👁️ Visione & Origine del Progetto
+
+**Vault Omega** è un progetto sperimentale nato dal desiderio di fondere la **logica pura della programmazione logica dichiarativa (Prolog-style)** con la potenza predittiva dei **modelli linguistici statistici (LLM)**. 
+
+I moderni agenti di coding (come Claude Code, Cursor, Codex, Antigravity) operano su basi statistiche, il che li rende inclini all'allucinazione, alla deriva del contesto e a consumi esponenziali di token. Vault Omega introduce un'infrastruttura **agnostica, auto-espandibile e deterministica** per governare la memoria collettiva dello sciame e consentire la collaborazione parallela di più agenti autonomi, eliminando la dipendenza da un singolo IDE o provider proprietario.
+
+---
+
 ## 🚀 Obiettivi Fondamentali
 
 1. **Riduzione Drastica delle Allucinazioni**: Sostituzione delle euristiche statistiche con controlli logici deterministici. Un agente non può dichiarare un compito completato se non soddisfa il contratto strutturale del vault.
@@ -48,7 +191,7 @@ Il vault è strutturato come un grafo cognitivo basato su **WikiLinks (`[[Link]]
 ```text
 ├── .gitignore
 ├── LICENSE                   # Licenza Apache 2.0 / MIT
-├── README.md                 # Questo documento di onboarding
+├── README.md                 # Questo documento di onboarding bilingue
 ├── context_summary.md        # Sommario compresso compilato (~150 token)
 ├── indici/                   # Mappe dei Contenuti (MOC) per la navigazione semantica
 │   ├── MOC_Architettura.md   # Grafo e topology del vault
@@ -113,24 +256,7 @@ python3 scripts/swarm_orchestrator.py dispatch --agent gemini --project /path/to
 
 ## 🖥️ La Web UI: Omega Playground
 
-Il modulo **Omega Playground** è un'interfaccia web di cantiere interamente **open-source e dependency-free** situata in **`playground/`**. 
-
-```text
-+-----------------------------------------------------------------------------+
-|                            Omega Playground Web UI                          |
-+----------------------+------------------------------+-----------------------+
-|  [Sidebar]           |  [Markdown Editor]           |  [D3 WikiLink Graph]  |
-|  - indici/           |                              |                       |
-|  - progetti/         |  Edit note contents          |  Visualizes floating  |
-|  - CANTIERI/         |  & write double-click        |  nodes. Click to      |
-|  - sessioni/         |  [[WikiLinks]]               |  navigate notes.      |
-|                      +------------------------------+-----------------------+
-|                      |  [Markdown Preview]          |  [Agent Swarm Panel]  |
-|                      |                              |  - Recommend agent    |
-|                      |  Live HTML rendering         |  - Dispatch worker    |
-|                      |  with clickable WikiLinks    |  - Real-time terminal |
-+----------------------+------------------------------+-----------------------+
-```
+Il modulo **Omega Playground** è un'interfaccia web di cantiere interamente **open-source e dependency-free** situata in **`playground/`**.
 
 ### Caratteristiche
 - **Graph Viewer D3.js**: Un grafico interattivo a forze che mappa le connessioni tra le note del vault in tempo reale. Cliccando su un nodo si apre la nota corrispondente.
@@ -151,10 +277,9 @@ Quindi apri nel browser l'indirizzo **`http://localhost:8080`**.
 Il progetto Vault Omega è rilasciato sotto la **Licenza Apache 2.0** e la **Licenza MIT**. È utilizzabile liberamente, modificabile e distribuibile sia per scopi privati che commerciali.
 
 ### Riferimenti di terze parti (Licenze Rispettate):
-Tutti i componenti esterni utilizzati dal playground sono open-source e pienamente conformi alle rispettive licenze d'uso:
-1. **D3.js** (Visualizzazione Grafico): Rilasciata sotto **Licenza ISC** (estremamente permissiva e compatibile con Apache/MIT).
-2. **Marked.js** (Parser Markdown): Rilasciata sotto **Licenza MIT** (pienamente compatibile).
-3. **Python 3** (Esecuzione Motori Logici): Rilasciata sotto **Python Software Foundation License** (compatibile con Apache/MIT).
-4. **Node.js / Bun** (Runtime Server): Rilasciate sotto licenze permissive MIT/BSD (pienamente compatibili).
+1. **D3.js** (Visualizzazione Grafico): Rilasciata sotto **Licenza ISC** (compatibile con Apache/MIT).
+2. **Marked.js** (Parser Markdown): Rilasciata sotto **Licenza MIT** (compatibile).
+3. **Python 3** (Esecuzione Motori Logici): Rilasciata sotto **Python Software Foundation License** (compatibile).
+4. **Node.js / Bun** (Runtime Server): Rilasciate sotto licenze permissive MIT/BSD (compatibili).
 
 Nessun codice proprietario o closed-source (compresi i sorgenti commerciali di Obsidian) è presente in questo repository.
