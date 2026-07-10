@@ -226,7 +226,7 @@ def check_orphans(report: Report, links_by_moc: dict[str, set[str]]) -> None:
         rel = path.relative_to(VAULT)
         if rel.parts[0] in {"sessioni", "dump"}:
             continue
-        if path.name in {"README.md", "GEMINI.md", "LICENSE"}:
+        if path.name in {"README.md", "GEMINI.md", "LICENSE", "context_summary.md"}:
             continue
         nid = note_id(path)
         text = read_text(path)

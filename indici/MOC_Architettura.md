@@ -31,7 +31,7 @@ graph TD
 - **`CANTIERI/`**: Contains active worksites where multiple agents iterate in parallel.
 - **`sessioni/`**: Contains chronological session notes serving as workspace handoffs.
 - **`scoperte e processi/`**: Registry of execution protocols (recipes and procedures).
-- **`informazioni generali/`**: Stable knowledge base (facts, agent configs).
+- **`informazioni generali/`**: Stable knowledge base & agent configurations (contiene [[Integrazione_Agenti]]).
 - **`dump/`**: Unstructured temp notes and logs.
 - **`scripts/`**: Tooling for validation, token optimization, and orchestration.
 
