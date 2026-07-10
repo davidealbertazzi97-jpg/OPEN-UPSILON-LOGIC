@@ -1,42 +1,30 @@
 # Vault Upsilon & Playground
-> **Experimental Sandbox for Agnostic Multi-Agent Swarms & Logic-Grounded Cognitive Memory**
+> **A Logical Agentic Memory Vault & Swarm Orchestrator — Upgrading Karpathy's LLM-Wiki Model with Prolog-Style Guardrails**
 
 ---
 
 ## 👁️ Vision & Origin of the Project
 
-**Vault Upsilon** is an experimental project born from the desire to merge **pure logic programming (Prolog-style)** with the predictive power of **statistical Large Language Models (LLMs)**.
+**Vault Upsilon** is an open-source framework designed to address the core limitations of modern autonomous coding agents (such as Claude Code, Cursor, Codex, Gemini, and Antigravity). While these systems excel at code generation, they operate on statistical probabilities, making them inherently prone to context drift, exponential token waste, and hallucinations. 
 
-Modern coding agents (such as Claude Code, Cursor, Codex, Antigravity) operate on statistical probabilities, making them prone to hallucinations, context drift, and exponential token consumption. Vault Upsilon introduces an **agnostic, self-expanding, and deterministic** infrastructure to govern the swarm's collective memory and enable parallel collaboration of multiple autonomous agents, eliminating dependency on a single proprietary IDE or environment.
+### Upgrading the Karpathy LLM-Wiki Model
+In Andrej Karpathy's vision, an LLM-centric OS uses a structured wiki-style memory layout where agents navigate via semantic links instead of raw directory listings. **Vault Upsilon directly upgrades and supercharges Karpathy's LLM-wiki model**. 
 
-```text
-       ┌────────────────────────────────────────────────────────┐
-       │                 Statistical LLM Agents                 │
-       │          (Claude Code, Cursor, Codex, Gemini)          │
-       └───────────────────────────┬────────────────────────────┘
-                                   │  Uses & Modifies
-                                   ▼
-       ┌────────────────────────────────────────────────────────┐
-       │             Vault Upsilon Cognitive Layout               │
-       │    (Structured Markdown Notes: MOCs, Cantieri, Logs)   │
-       └───────────────────────────┬────────────────────────────┘
-                                   │  Evaluated By
-                                   ▼
-       ┌────────────────────────────────────────────────────────┐
-       │               Deterministic Logic Layer                │
-       │   - vault_guardrails.py (Rules & Conflict Checker)     │
-       │   - token_optimizer.py  (Aggregator & Token Saver)     │
-       └────────────────────────────────────────────────────────┘
-```
+We overlay this semantic graph with a **deterministic, Prolog-style logical checker**. This logic layer acts as rigid **logical tracks (binari logici)**, channeling the statistical noise of the LLM into a bounded, verifiable path. If an agent tries to hallucinate or violate repository boundaries, the logic validator flags the conflict, forcing compliance before a task can be finalized.
+
+### Homelab Heritage & Swarm Control
+This project is not a theoretical prototype. It was born out of a real-world multi-agent setup **created months ago and run daily in a private homelab** to manage coding tasks. It features:
+*   **Logical Agentic Memory**: A self-correcting memory structure that prevents context pollution.
+*   **Swarm Agent Orchestration**: A native orchestrator that allows a lead agent to dispatch, monitor, and coordinate sub-agents in parallel slots.
 
 ---
 
 ## 🚀 Core Goals
 
-1. **Drastic Reduction of Hallucinations**: Replacing statistical heuristics with deterministic logical checks. An agent cannot declare a task completed unless it satisfies the structural contract of the vault.
+1. **Drastic Reduction of Hallucinations**: By checking files against a deterministic logical engine, agents are guided along logical tracks. An agent cannot declare a task complete unless the repository satisfies the strict validation contract.
 2. **Context Savings (Token Optimizer)**: Reducing up to 95% of tokens wasted in exploratory file scans, thanks to the dynamic compilation of the active state into a single compressed file (`context_summary.md`).
-3. **Parallel Multi-Agent Collaboration**: A portable orchestrator script capable of recommending and routing sub-tasks to specialized agent slots (`gemini`, `goose`, `opencode`, `codex`, `copilot`, `cursor`).
-4. **IDE & Provider Agnostic**: A decentralized infrastructure running locally on the developer's machine, accessible via filesystem, REST API, or MCP (Model Context Protocol).
+3. **Parallel Multi-Agent Swarming**: Natively integrates a swarm orchestrator to dispatch, recommend, and route tasks to specialized sub-agents (`gemini`, `goose`, `opencode`, `codex`, `copilot`, `cursor`).
+4. **IDE & Provider Agnostic**: A decentralized infrastructure running locally, accessible via standard filesystem, REST API, or MCP (Model Context Protocol).
 5. **Autonomous Logical Self-Expansion**: Agents themselves can write new protocols and modify Python validation scripts to introduce new rules that apply to all future swarm runs.
 
 ---
@@ -282,24 +270,32 @@ No proprietary or closed-source code (including commercial Obsidian sources) is 
 ---
 
 # Vault Upsilon & Playground (Italiano)
-> **Sandbox Sperimentale per Swarm Multi-Agente Agnostici e Memoria Cognitiva Fondata sulla Logica**
+> **Una Memoria Agentica Logica & Swarm Orchestrator — Un potenziamento del modello LLM-Wiki di Karpathy tramite Guardrail in stile Prolog**
 
 ---
 
 ## 👁️ Visione & Origine del Progetto
 
-**Vault Upsilon** è un progetto sperimentale nato dal desiderio di fondere la **logica pura della programmazione logica dichiarativa (Prolog-style)** con la potenza predittiva dei **modelli linguistici statistici (LLM)**. 
+**Vault Upsilon** è un framework open-source progettato per superare i limiti strutturali dei moderni agenti autonomi di coding (come Claude Code, Cursor, Codex, Gemini e Antigravity). Sebbene questi sistemi siano eccellenti nella generazione di codice, essi operano su basi puramente statistiche, rendendoli inclini alla deriva del contesto, al consumo esponenziale di token e alle allucinazioni.
 
-I moderni agenti di coding (come Claude Code, Cursor, Codex, Antigravity) operano su basi statistiche, il che li rende inclini all'allucinazione, alla deriva del contesto e a consumi esponenziali di token. Vault Upsilon introduce un'infrastruttura **agnostica, auto-espandibile e deterministica** per governare la memoria collettiva dello sciame e consentire la collaborazione parallela di più agenti autonomi, eliminando la dipendenza da un singolo IDE o provider proprietario.
+### Potenziare il modello LLM-Wiki di Karpathy
+Nella visione originale di Andrej Karpathy, un sistema operativo basato su LLM (LLM-as-OS) trae beneficio da un'infrastruttura di memoria strutturata a wiki, dove gli agenti navigano tramite link semantici anziché scansionare ciecamente il filesystem. **Vault Upsilon evolve direttamente il modello LLM-wiki di Karpathy**.
+
+Abbiamo sovrapposto a questo grafo semantico un **validatore logico deterministico ispirato a Prolog**. Questo livello logico agisce come veri e propri **binari logici**, incanalando il rumore statistico dei modelli linguistici all'interno di un percorso ordinato e verificabile. Se un agente tenta di allucinare o violare i vincoli del repository, il validatore solleva un conflitto bloccante, costringendolo a correggersi prima di completare il lavoro.
+
+### L'Origine nel mio Homelab & Controllo Swarm
+Questo progetto non è un prototipo teorico. Nasce da un setup reale multi-agente **creato mesi fa e utilizzato quotidianamente nel mio homelab personale** per gestire e coordinare i lavori di programmazione dello sciame. Offre:
+*   **Memoria Agentica Logica**: Una struttura a grafo auto-correttiva che impedisce la contaminazione del contesto.
+*   **Orchestra Swarm Nativo**: Uno script che permette a un agente principale di istruire, monitorare e coordinare in parallelo più agenti delegati.
 
 ---
 
 ## 🚀 Obiettivi Fondamentali
 
-1. **Riduzione Drastica delle Allucinazioni**: Sostituzione delle euristiche statistiche con controlli logici deterministici. Un agente non può dichiarare un compito completato se non soddisfa il contratto strutturale del vault.
-2. **Risparmio del Contesto (Token Saving)**: Riduzione fino al 95% dei token sprecati in letture esplorative, grazie alla compilazione dinamica dello stato in un singolo file compresso (`context_summary.md`).
-3. **Collaborazione Multi-Agente in Parallelo**: Uno script orchestratore portabile in grado di raccomandare e instradare sotto-task a slot agenti specializzati (`gemini`, `goose`, `opencode`, `codex`, `copilot`, `cursor`).
-4. **Indipendenza da IDE e Provider (Agnostico)**: Un'infrastruttura decentralizzata che gira in locale sulla macchina del developer, accessibile sia da filesystem che via API REST o protocollo MCP.
+1. **Riduzione Drastica delle Allucinazioni**: Guidando l'agente lungo binari logici deterministici. Un agente non può dichiarare un compito completato se non soddisfa il contratto strutturale del vault.
+2. **Risparmio del Contesto (Token Saving)**: Riduzione fino al 95% dei token sprecati in letture esplorative del filesystem, grazie alla compilazione dinamica dello stato attivo in un singolo file compresso (`context_summary.md`).
+3. **Collaborazione e Swarm Multi-Agente**: Integra nativamente un orchestratore per raccomandare, delegare e instradare i compiti a corsie di agenti specializzate (`gemini`, `goose`, `opencode`, `codex`, `copilot`, `cursor`).
+4. **Indipendenza da IDE e Provider (Agnostico)**: Un'infrastruttura decentralizzata che gira in locale sulla macchina, accessibile tramite filesystem, REST API o protocollo MCP.
 5. **Autonomia Logica e Auto-Espansione (Self-Expanding Mind)**: Gli agenti stessi possono scrivere nuovi protocolli e modificare i file di verifica logica Python per introdurre nuove regole che si applicheranno a tutti i futuri agenti dello sciame.
 
 ---
