@@ -146,6 +146,113 @@ Then navigate to **`http://localhost:8080`**.
 
 ---
 
+## 🔧 Quick Installation & Agent Automation
+
+### Manual Installation (All Platforms)
+To run the playground server locally:
+```bash
+# 1. Clone the repository
+git clone https://github.com/davidealbertazzi97-jpg/OPEN-OMEGA-LOGIC.git
+
+# 2. Enter the folder
+cd OPEN-OMEGA-LOGIC
+
+# 3. Launch the server
+node playground/server.js
+```
+The dashboard is now running at `http://localhost:8080`.
+
+### 🤖 Plug-and-Play Agent Automation Prompt (Cross-Platform)
+Copy and paste this single prompt block directly into your AI coding agent (e.g. Claude Code, Cursor Agent, Aider, Codex) to let it automatically install, configure, and persist the playground server across reboots on **Linux, macOS, and Windows**:
+
+````markdown
+You are an autonomous AI coding agent. Your goal is to install, configure, and set up the Open-Omega-Logic playground vault on this host, ensuring it runs persistently on every system reboot.
+
+Follow these step-by-step instructions:
+
+1. **Clone the Repository**:
+   Clone the repository to a dedicated directory in the user's home directory:
+   ```bash
+   git clone https://github.com/davidealbertazzi97-jpg/OPEN-OMEGA-LOGIC.git ~/OPEN-OMEGA-LOGIC
+   ```
+
+2. **Verify Prerequisites**:
+   Check if Node.js (or Bun) and Python 3 are installed on the host. Locate the absolute path of `node` (using `which node` on Unix, or `where node` on Windows).
+
+3. **Initialize the Vault State**:
+   Enter the directory and compile the initial vault state:
+   ```bash
+   cd ~/OPEN-OMEGA-LOGIC
+   python3 scripts/token_optimizer.py
+   ```
+
+4. **Ensure Cross-Platform Reboot Persistence**:
+   Depending on the detected host Operating System, set up automatic persistence:
+
+   - **On Linux**:
+     Create `~/.config/systemd/user/omega-playground.service`:
+     ```ini
+     [Unit]
+     Description=Omega Playground Server Daemon
+     After=network.target
+
+     [Service]
+     ExecStart=<NODE_PATH> <REPO_PATH>/playground/server.js
+     Restart=always
+     Environment=PORT=8080
+     WorkingDirectory=<REPO_PATH>
+
+     [Install]
+     WantedBy=default.target
+     ```
+     Enable and start the service:
+     ```bash
+     systemctl --user daemon-reload
+     systemctl --user enable omega-playground.service
+     systemctl --user start omega-playground.service
+     ```
+
+   - **On macOS**:
+     Create `~/Library/LaunchAgents/com.omega.playground.plist`:
+     ```xml
+     <?xml version="1.0" encoding="UTF-8"?>
+     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+     <plist version="1.0">
+     <dict>
+         <key>Label</key>
+         <string>com.omega.playground</string>
+         <key>ProgramArguments</key>
+         <array>
+             <string><NODE_PATH></string>
+             <string><REPO_PATH>/playground/server.js</string>
+         </array>
+         <key>RunAtLoad</key>
+         <true/>
+         <key>KeepAlive</key>
+         <true/>
+         <key>WorkingDirectory</key>
+         <string><REPO_PATH></string>
+     </dict>
+     </plist>
+     ```
+     Load the agent:
+     ```bash
+     launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.omega.playground.plist
+     ```
+
+   - **On Windows**:
+     Create a silent startup script `omega-startup.vbs` in the Windows Startup Folder (`shell:startup`):
+     ```vbs
+     Set WshShell = CreateObject("WScript.Shell")
+     WshShell.Run "node """ & WshShell.ExpandEnvironmentStrings("%USERPROFILE%") & "\OPEN-OMEGA-LOGIC\playground\server.js""", 0, False
+     ```
+
+5. **Validate Server**:
+   Query `http://localhost:8080/api/files` to confirm that the server is up and listening. Report back to the user with the service status.
+````
+
+---
+
 ## 📜 License & Third-Party Compliance
 
 The project is dual-licensed under the **Apache License 2.0** and the **MIT License**. It is free to use, modify, and distribute for both private and commercial purposes.
@@ -269,6 +376,113 @@ Avvio:
 node playground/server.js
 ```
 Quindi apri nel browser l'indirizzo **`http://localhost:8080`**.
+
+---
+
+## 🔧 Installazione Rapida & Automazione Agenti
+
+### Installazione Manuale (Tutte le Piattaforme)
+Per avviare il server del playground in locale:
+```bash
+# 1. Clona la repository
+git clone https://github.com/davidealbertazzi97-jpg/OPEN-OMEGA-LOGIC.git
+
+# 2. Entra nella cartella
+cd OPEN-OMEGA-LOGIC
+
+# 3. Avvia il server
+node playground/server.js
+```
+La dashboard è ora attiva su `http://localhost:8080`.
+
+### 🤖 Prompt di Automazione Plug-and-Play per Agenti AI (Cross-Platform)
+Copia e incolla questo blocco di prompt direttamente nella chat del tuo agente di coding (es. Claude Code, Cursor Agent, Aider, Codex) per fargli installare, configurare e rendere persistente il server del playground ad ogni avvio su **Linux, macOS e Windows**:
+
+````markdown
+You are an autonomous AI coding agent. Your goal is to install, configure, and set up the Open-Omega-Logic playground vault on this host, ensuring it runs persistently on every system reboot.
+
+Follow these step-by-step instructions:
+
+1. **Clone the Repository**:
+   Clone the repository to a dedicated directory in the user's home directory:
+   ```bash
+   git clone https://github.com/davidealbertazzi97-jpg/OPEN-OMEGA-LOGIC.git ~/OPEN-OMEGA-LOGIC
+   ```
+
+2. **Verify Prerequisites**:
+   Check if Node.js (or Bun) and Python 3 are installed on the host. Locate the absolute path of `node` (using `which node` on Unix, or `where node` on Windows).
+
+3. **Initialize the Vault State**:
+   Enter the directory and compile the initial vault state:
+   ```bash
+   cd ~/OPEN-OMEGA-LOGIC
+   python3 scripts/token_optimizer.py
+   ```
+
+4. **Ensure Cross-Platform Reboot Persistence**:
+   Depending on the detected host Operating System, set up automatic persistence:
+
+   - **On Linux**:
+     Create `~/.config/systemd/user/omega-playground.service`:
+     ```ini
+     [Unit]
+     Description=Omega Playground Server Daemon
+     After=network.target
+
+     [Service]
+     ExecStart=<NODE_PATH> <REPO_PATH>/playground/server.js
+     Restart=always
+     Environment=PORT=8080
+     WorkingDirectory=<REPO_PATH>
+
+     [Install]
+     WantedBy=default.target
+     ```
+     Enable and start the service:
+     ```bash
+     systemctl --user daemon-reload
+     systemctl --user enable omega-playground.service
+     systemctl --user start omega-playground.service
+     ```
+
+   - **On macOS**:
+     Create `~/Library/LaunchAgents/com.omega.playground.plist`:
+     ```xml
+     <?xml version="1.0" encoding="UTF-8"?>
+     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+     <plist version="1.0">
+     <dict>
+         <key>Label</key>
+         <string>com.omega.playground</string>
+         <key>ProgramArguments</key>
+         <array>
+             <string><NODE_PATH></string>
+             <string><REPO_PATH>/playground/server.js</string>
+         </array>
+         <key>RunAtLoad</key>
+         <true/>
+         <key>KeepAlive</key>
+         <true/>
+         <key>WorkingDirectory</key>
+         <string><REPO_PATH></string>
+     </dict>
+     </plist>
+     ```
+     Load the agent:
+     ```bash
+     launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.omega.playground.plist
+     ```
+
+   - **On Windows**:
+     Create a silent startup script `omega-startup.vbs` in the Windows Startup Folder (`shell:startup`):
+     ```vbs
+     Set WshShell = CreateObject("WScript.Shell")
+     WshShell.Run "node """ & WshShell.ExpandEnvironmentStrings("%USERPROFILE%") & "\OPEN-OMEGA-LOGIC\playground\server.js""", 0, False
+     ```
+
+5. **Validate Server**:
+   Query `http://localhost:8080/api/files` to confirm that the server is up and listening. Report back to the user with the service status.
+````
 
 ---
 
