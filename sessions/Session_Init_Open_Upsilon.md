@@ -7,7 +7,7 @@ tags:
   - initialization
   - vault-upsilon
 ---
-# Session Init Vault Upsilon
+# Session Init Open Upsilon
 
 ## Objective
 - Initialize the structure of the Upsilon vault template with all initial paths and conventions.

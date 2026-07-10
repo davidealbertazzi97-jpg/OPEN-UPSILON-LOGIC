@@ -1,14 +1,14 @@
-# Vault Upsilon & Playground
+# Open Upsilon & Playground
 > **A Logical Agentic Memory Vault & Swarm Orchestrator — Upgrading Karpathy's LLM-Wiki Model with Prolog-Style Guardrails**
 
 ---
 
 ## 👁️ Vision & Origin of the Project
 
-**Vault Upsilon** is an open-source framework designed to address the core limitations of modern autonomous coding agents (such as Claude Code, Cursor, Codex, Gemini, and Antigravity). While these systems excel at code generation, they operate on statistical probabilities, making them inherently prone to context drift, exponential token waste, and hallucinations. 
+**Open Upsilon** is an open-source framework designed to address the core limitations of modern autonomous coding agents (such as Claude Code, Cursor, Codex, Gemini, and Antigravity). While these systems excel at code generation, they operate on statistical probabilities, making them inherently prone to context drift, exponential token waste, and hallucinations. 
 
 ### Upgrading the Karpathy LLM-Wiki Model
-In Andrej Karpathy's vision, an LLM-centric OS uses a structured wiki-style memory layout where agents navigate via semantic links instead of raw directory listings. **Vault Upsilon directly upgrades and supercharges Karpathy's LLM-wiki model**. 
+In Andrej Karpathy's vision, an LLM-centric OS uses a structured wiki-style memory layout where agents navigate via semantic links instead of raw directory listings. **Open Upsilon directly upgrades and supercharges Karpathy's LLM-wiki model**. 
 
 We overlay this semantic graph with a **deterministic, Prolog-style logical checker**. This logic layer acts as rigid **logical tracks (binari logici)**, channeling the statistical noise of the LLM into a bounded, verifiable path. If an agent tries to hallucinate or violate repository boundaries, the logic validator flags the conflict, forcing compliance before a task can be finalized.
 
@@ -269,17 +269,17 @@ No proprietary or closed-source code (including commercial Obsidian sources) is 
 ---
 ---
 
-# Vault Upsilon & Playground (Italiano)
+# Open Upsilon & Playground (Italiano)
 > **Una Memoria Agentica Logica & Swarm Orchestrator — Un potenziamento del modello LLM-Wiki di Karpathy tramite Guardrail in stile Prolog**
 
 ---
 
 ## 👁️ Visione & Origine del Progetto
 
-**Vault Upsilon** è un framework open-source progettato per superare i limiti strutturali dei moderni agenti autonomi di coding (come Claude Code, Cursor, Codex, Gemini e Antigravity). Sebbene questi sistemi siano eccellenti nella generazione di codice, essi operano su basi puramente statistiche, rendendoli inclini alla deriva del contesto, al consumo esponenziale di token e alle allucinazioni.
+**Open Upsilon** è un framework open-source progettato per superare i limiti strutturali dei moderni agenti autonomi di coding (come Claude Code, Cursor, Codex, Gemini e Antigravity). Sebbene questi sistemi siano eccellenti nella generazione di codice, essi operano su basi puramente statistiche, rendendoli inclini alla deriva del contesto, al consumo esponenziale di token e alle allucinazioni.
 
 ### Potenziare il modello LLM-Wiki di Karpathy
-Nella visione originale di Andrej Karpathy, un sistema operativo basato su LLM (LLM-as-OS) trae beneficio da un'infrastruttura di memoria strutturata a wiki, dove gli agenti navigano tramite link semantici anziché scansionare ciecamente il filesystem. **Vault Upsilon evolve direttamente il modello LLM-wiki di Karpathy**.
+Nella visione originale di Andrej Karpathy, un sistema operativo basato su LLM (LLM-as-OS) trae beneficio da un'infrastruttura di memoria strutturata a wiki, dove gli agenti navigano tramite link semantici anziché scansionare ciecamente il filesystem. **Open Upsilon evolve direttamente il modello LLM-wiki di Karpathy**.
 
 Abbiamo sovrapposto a questo grafo semantico un **validatore logico deterministico ispirato a Prolog**. Questo livello logico agisce come veri e propri **binari logici**, incanalando il rumore statistico dei modelli linguistici all'interno di un percorso ordinato e verificabile. Se un agente tenta di allucinare o violare i vincoli del repository, il validatore solleva un conflitto bloccante, costringendolo a correggersi prima di completare il lavoro.
 
@@ -510,7 +510,7 @@ Il software viene fornito **"così com'è"**, senza garanzie di alcun tipo, espl
 
 ## 📜 Licenza & Conformità Open Source
 
-Il progetto Vault Upsilon è rilasciato sotto la **Licenza Apache 2.0** e la **Licenza MIT**. È utilizzabile liberamente, modificabile e distribuibile sia per scopi privati che commerciali.
+Il progetto Open Upsilon è rilasciato sotto la **Licenza Apache 2.0** e la **Licenza MIT**. È utilizzabile liberamente, modificabile e distribuibile sia per scopi privati che commerciali.
 
 ### Riferimenti di terze parti (Licenze Rispettate):
 1. **D3.js** (Visualizzazione Grafico): Rilasciata sotto **Licenza ISC** (compatibile con Apache/MIT).

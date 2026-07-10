@@ -6,10 +6,10 @@ tags: [moc, architecture, entrypoint]
 ---
 # MOC Architecture
 
-This Map of Content (MOC) defines the entry topology and rules of Vault Upsilon. Coding agents must use this node to orient themselves and find other indices and modules.
+This Map of Content (MOC) defines the entry topology and rules of Open Upsilon. Coding agents must use this node to orient themselves and find other indices and modules.
 
 ## Structural Design
-Vault Upsilon is built as an agentic memory model. Instead of scanning directories (which wastes valuable context tokens), agents must follow wikilinks to jump between nodes.
+Open Upsilon is built as an agentic memory model. Instead of scanning directories (which wastes valuable context tokens), agents must follow wikilinks to jump between nodes.
 
 ```mermaid
 graph TD
