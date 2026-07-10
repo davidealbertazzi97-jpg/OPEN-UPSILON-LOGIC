@@ -27,5 +27,5 @@ tags:
   - `swarm_orchestrator.py` (orchestratore dei runner locali)
 
 ## Dove
-- [README.md](file:///home/asus/omega/progetto%20omega/README.md)
-- [indici/MOC_Architettura.md](file:///home/asus/omega/progetto%20omega/indici/MOC_Architettura.md)
+- [README.md](../README.md)
+- [indici/MOC_Architettura.md](../indici/MOC_Architettura.md)

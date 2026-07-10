@@ -1,5 +1,5 @@
 # Context Summary (Token-Optimized)
-Generated at: 2026-07-10 19:57:49
+Generated at: 2026-07-10 20:16:43
 
 ## Active Worksites (CANTIERI)
 - No active worksites found.
@@ -13,8 +13,8 @@ Generated at: 2026-07-10 19:57:49
   - `token_optimizer.py` (compilatore di stato ridotto per risparmio token)
   - `swarm_orchestrator.py` (orchestratore dei runner locali)
 - **Entry Points**:
-- [README.md](file:///home/asus/omega/progetto%20omega/README.md)
-- [indici/MOC_Architettura.md](file:///home/asus/omega/progetto%20omega/indici/MOC_Architettura.md)
+- [README.md](../README.md)
+- [indici/MOC_Architettura.md](../indici/MOC_Architettura.md)
 
 ## Core Execution Protocols
 - [[Protocollo_Guardrail_Logici]] - Tag: [protocollo, logica, guardrails, antiallucinazione]
