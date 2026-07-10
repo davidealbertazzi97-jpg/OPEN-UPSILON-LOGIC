@@ -8,7 +8,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { exec, spawn } = require('child_process');
+const { exec, execFile, spawn } = require('child_process');
 const url = require('url');
 
 const PORT = process.env.PORT || 8080;
@@ -221,7 +221,7 @@ const server = http.createServer((req, res) => {
     // Ensure dump dir exists
     fs.mkdirSync(path.join(VAULT_DIR, 'dump'), { recursive: true });
 
-    exec(`python3 "${scriptPath}" --json-output "${jsonOut}"`, { cwd: VAULT_DIR }, (err, stdout, stderr) => {
+    execFile('python3', [scriptPath, '--json-output', jsonOut], { cwd: VAULT_DIR }, (err, stdout, stderr) => {
       try {
         if (fs.existsSync(jsonOut)) {
           const report = fs.readFileSync(jsonOut, 'utf8');
@@ -242,7 +242,7 @@ const server = http.createServer((req, res) => {
   // Run Token Optimizer
   if (pathname === '/api/optimize' && req.method === 'GET') {
     const scriptPath = path.join(VAULT_DIR, 'scripts', 'token_optimizer.py');
-    exec(`python3 "${scriptPath}"`, { cwd: VAULT_DIR }, (err, stdout, stderr) => {
+    execFile('python3', [scriptPath], { cwd: VAULT_DIR }, (err, stdout, stderr) => {
       if (err) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end(`Optimizer failed: ${stderr || err.message}`);
@@ -270,7 +270,7 @@ const server = http.createServer((req, res) => {
       return;
     }
     const scriptPath = path.join(VAULT_DIR, 'scripts', 'swarm_orchestrator.py');
-    exec(`python3 "${scriptPath}" recommend --task "${task.replace(/"/g, '\\"')}"`, { cwd: VAULT_DIR }, (err, stdout, stderr) => {
+    execFile('python3', [scriptPath, 'recommend', '--task', task], { cwd: VAULT_DIR }, (err, stdout, stderr) => {
       if (err) {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end(`Swarm recommend failed: ${stderr || err.message}`);
@@ -285,7 +285,7 @@ const server = http.createServer((req, res) => {
   // Swarm Check Agents
   if (pathname === '/api/swarm/check-agents' && req.method === 'GET') {
     const scriptPath = path.join(VAULT_DIR, 'scripts', 'swarm_orchestrator.py');
-    exec(`python3 "${scriptPath}" check-agent --all`, { cwd: VAULT_DIR }, (err, stdout, stderr) => {
+    execFile('python3', [scriptPath, 'check-agent', '--all'], { cwd: VAULT_DIR }, (err, stdout, stderr) => {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.end(stdout + (stderr ? '\n' + stderr : ''));
     });

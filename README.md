@@ -253,6 +253,19 @@ Follow these step-by-step instructions:
 
 ---
 
+## ⚠️ Disclaimer & Warranty
+This is an experimental, proof-of-concept project. While it has been designed to reduce hallucinations, save tokens, and coordinate multiple agents, **we cannot guarantee 100% that it will always work perfectly, remain bug-free, or be compatible with all future LLM client changes**. 
+
+The software is provided **"as is"**, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability.
+
+## 🏆 What We Have Achieved (Results)
+- **Deterministic Guardrails**: Built a Prolog-style Python logic validator that strictly prevents workspace structural decay.
+- **Context Consolidation**: Achieved up to 95% token savings (from ~4000+ down to ~150 tokens) per turn by compiling active states.
+- **Multi-Agent Orchestration**: Successfully tested local parallel runs using 6 separate agent engines on different platforms.
+- **Zero-Dependency Web Portal**: Created a beautiful visual node-link and editor dashboard with zero node_modules.
+
+---
+
 ## 📜 License & Third-Party Compliance
 
 The project is dual-licensed under the **Apache License 2.0** and the **MIT License**. It is free to use, modify, and distribute for both private and commercial purposes.
@@ -483,6 +496,19 @@ Follow these step-by-step instructions:
 5. **Validate Server**:
    Query `http://localhost:8080/api/files` to confirm that the server is up and listening. Report back to the user with the service status.
 ````
+
+---
+
+## ⚠️ Disclaimer & Limitazione di Garanzia
+Questo è un progetto sperimentale e concettuale (proof-of-concept). Sebbene sia stato progettato per ridurre le allucinazioni, risparmiare token e coordinare più agenti in parallelo, **non possiamo garantire al 100% che funzioni sempre in modo perfetto, esente da bug o compatibile con tutti i futuri aggiornamenti dei client LLM**.
+
+Il software viene fornito **"così com'è"**, senza garanzie di alcun tipo, esplicite o implicite. In nessun caso gli autori o i titolari del copyright saranno responsabili per eventuali reclami, danni o altre responsabilità derivanti dall'uso di questo software.
+
+## 🏆 Risultati Ottenuti (Cosa Abbiamo Realizzato)
+- **Guardrail Deterministici**: Creato un validatore logico Python in stile Prolog per prevenire la disorganizzazione dello spazio di lavoro.
+- **Consolidamento del Contesto**: Raggiunto fino al 95% di risparmio sui token di contesto (da 4000+ a ~150 token per turno) tramite compilazione dinamica degli stati attivi.
+- **Orchestrazione Multilivello**: Testate con successo le corse in parallelo di 6 diversi motori di agenti locali.
+- **Dashboard Leggera a Zero Dipendenze**: Sviluppato un portale grafico interattivo di modifica e visualizzazione dei WikiLink senza moduli NPM di terze parti sul server.
 
 ---
 
