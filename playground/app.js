@@ -1,5 +1,5 @@
 /**
- * Omega Playground Frontend Logic
+ * Upsilon Playground Frontend Logic
  * Implements WikiLinks parser, file manager, D3 force graph,
  * guardrail checks, token compiler, and real-time swarm runner logs.
  */
@@ -88,7 +88,7 @@ function initOnboarding() {
   `;
   previewPane.innerHTML = `
     <div style="max-width: 600px; margin: 40px auto; padding: 24px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px;">
-      <h2 style="font-size: 22px; margin-bottom: 12px; font-weight: 700; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome to Omega Playground</h2>
+      <h2 style="font-size: 22px; margin-bottom: 12px; font-weight: 700; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Welcome to Upsilon Playground</h2>
       <p style="margin-bottom: 12px; font-size: 14px; color: var(--text-muted); line-height: 1.6;">
         This is an interactive wiki playground and control panel designed for AI agent teams. You can view index links, manage cantieri, run logical checks, and spawn local swarm coding agents directly.
       </p>

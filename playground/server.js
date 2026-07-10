@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Omega Playground Backend Server
+ * Upsilon Playground Backend Server
  * Dependency-free, runs on Node.js and Bun.
  * Exposes vault files, graph connections, and runs scripts.
  */
@@ -29,7 +29,7 @@ const MIME_TYPES = {
 
 // Log helper
 function log(msg) {
-  console.log(`[OmegaServer] ${new Date().toISOString()} - ${msg}`);
+  console.log(`[UpsilonServer] ${new Date().toISOString()} - ${msg}`);
 }
 
 // Read markdown files recursively
@@ -424,5 +424,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  log(`Omega Playground server running on: http://localhost:${PORT}`);
+  log(`Upsilon Playground server running on: http://localhost:${PORT}`);
 });

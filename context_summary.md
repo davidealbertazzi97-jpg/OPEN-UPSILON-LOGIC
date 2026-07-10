@@ -1,10 +1,10 @@
 # Context Summary (Token-Optimized)
-Generated at: 2026-07-10 20:16:43
+Generated at: 2026-07-11 00:45:26
 
 ## Active Worksites (CANTIERI)
 - No active worksites found.
 ## Recent Session Logs (Last 3 Handoffs)
-### [[Sessione_Init_Vault_Omega]] (2026-07-10)
+### [[Sessione_Init_Vault_Upsilon]] (2026-07-10)
 - **Project**: [[MOC_Architettura]]
 - **Final Status**: - Struttura del vault interamente scaffoldata.  - Pronta per l'inclusione degli script logici di guardrail, ottimizzazione dei token ed orchestrazione swarm.
 - **Next Steps**:

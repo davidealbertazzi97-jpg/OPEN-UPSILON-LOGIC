@@ -5,12 +5,12 @@ date: 2026-07-10
 tags:
   - sessione
   - inizializzazione
-  - vault-omega
+  - vault-upsilon
 ---
-# Sessione Init Vault Omega
+# Sessione Init Vault Upsilon
 
 ## Obiettivo
-- Inizializzare la struttura del template del vault Omega con tutti i percorsi e le convenzioni di base.
+- Inizializzare la struttura del template del vault Upsilon con tutti i percorsi e le convenzioni di base.
 
 ## File
 - Tutte le cartelle e i README iniziali (`indici/`, `CANTIERI/`, `scoperte e processi/`, `informazioni generali/`, `progetti/`, `dump/`, `sessioni/`).

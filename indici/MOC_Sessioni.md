@@ -7,7 +7,7 @@ tags: [moc, sessioni]
 
 Chronological log of work sessions left by agents. Sessions act as handoffs and must reference the project they belong to.
 
-- [[Sessione_Init_Vault_Omega]] - Initialization of the Vault Omega project template
+- [[Sessione_Init_Vault_Upsilon]] - Initialization of the Vault Upsilon project template
 
 ---
 [[MOC_Architettura]]
