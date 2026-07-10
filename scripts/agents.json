@@ -1,0 +1,64 @@
+{
+  "agents": {
+    "gemini": {
+      "label": "Gemini CLI",
+      "role": "visual-polish, copy, frontend ideation, second-opinion implementation",
+      "command": "gemini",
+      "defaults": {
+        "mode": "headless",
+        "autonomy": "high",
+        "execution_preference": "host"
+      }
+    },
+    "goose": {
+      "label": "Goose",
+      "role": "alternate implementation, ops tasking, broad experimentation",
+      "command": "goose",
+      "defaults": {
+        "mode": "run",
+        "autonomy": "medium",
+        "execution_preference": "host"
+      }
+    },
+    "opencode": {
+      "label": "OpenCode",
+      "role": "exploration, docs, bounded coding tasks, extra implementation lane",
+      "command": "opencode",
+      "defaults": {
+        "mode": "run",
+        "autonomy": "high",
+        "execution_preference": "host"
+      }
+    },
+    "codex": {
+      "label": "Codex CLI",
+      "role": "disciplined implementation, review, exacting code work",
+      "command": "codex",
+      "defaults": {
+        "mode": "exec",
+        "autonomy": "high",
+        "execution_preference": "sandbox"
+      }
+    },
+    "copilot": {
+      "label": "GitHub Copilot CLI",
+      "role": "github-native coding agent, issue/PR workflows, alternate implementation lane",
+      "command": "copilot",
+      "defaults": {
+        "mode": "agent",
+        "autonomy": "high",
+        "execution_preference": "host"
+      }
+    },
+    "cursor": {
+      "label": "Cursor Agent CLI",
+      "role": "cursor-native coding agent, alternate implementation lane, model comparison",
+      "command": "cursor-agent",
+      "defaults": {
+        "mode": "print",
+        "autonomy": "high",
+        "execution_preference": "host"
+      }
+    }
+  }
+}
