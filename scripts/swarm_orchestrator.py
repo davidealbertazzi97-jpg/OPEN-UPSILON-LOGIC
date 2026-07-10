@@ -345,11 +345,17 @@ def build_agent_env(project: Path) -> dict[str, str]:
     env.setdefault("CLICOLOR", "0")
     env.setdefault("TERM", "dumb")
 
-    venv_bin = project / ".venv" / "bin"
-    venv_python = venv_bin / "python"
-    python_cmd = str(venv_python) if venv_python.exists() else "python3"
+    if os.name == "nt":
+        venv_bin = project / ".venv" / "Scripts"
+        venv_python = venv_bin / "python.exe"
+        python_cmd = str(venv_python) if venv_python.exists() else "python"
+    else:
+        venv_bin = project / ".venv" / "bin"
+        venv_python = venv_bin / "python"
+        python_cmd = str(venv_python) if venv_python.exists() else "python3"
+
     if venv_bin.exists():
-        env["PATH"] = f"{venv_bin}:{env.get('PATH', '')}"
+        env["PATH"] = f"{venv_bin}{os.pathsep}{env.get('PATH', '')}"
         env["VIRTUAL_ENV"] = str(project / ".venv")
     env["PYTHON"] = python_cmd
     env["PYTHON3"] = python_cmd
