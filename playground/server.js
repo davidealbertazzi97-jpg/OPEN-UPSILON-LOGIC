@@ -59,9 +59,12 @@ function buildGraph() {
   // Create nodes
   for (const file of files) {
     const relPath = path.relative(VAULT_DIR, file);
+    const relPathNormalized = relPath.replace(/\\/g, '/');
     const name = path.basename(file, '.md');
+    const id = relPathNormalized.endsWith('.md') ? relPathNormalized.slice(0, -3) : relPathNormalized;
+    
     let group = 'other';
-    const folder = relPath.split(path.sep)[0];
+    const folder = relPathNormalized.split('/')[0];
     
     if (folder === 'indices') group = 'index';
     else if (folder === 'projects') group = 'project';
@@ -70,14 +73,19 @@ function buildGraph() {
     else if (folder === 'protocols') group = 'protocol';
     else if (folder === 'knowledge_base') group = 'kb';
 
-    fileMap.set(name.toLowerCase(), { id: name, label: name, group, path: relPath });
-    nodes.push({ id: name, label: name, group, path: relPath });
+    const nodeData = { id, label: name, group, path: relPathNormalized };
+    
+    fileMap.set(id.toLowerCase(), nodeData);
+    fileMap.set(name.toLowerCase(), nodeData); // fallback for simple wiki links
+    
+    nodes.push(nodeData);
   }
 
   // Find links
   const wikilinkRegex = /\[\[([^\]|#]+)(?:[#|][^\]]*)?\]\]/g;
   for (const file of files) {
-    const sourceName = path.basename(file, '.md');
+    const relPath = path.relative(VAULT_DIR, file).replace(/\\/g, '/');
+    const sourceId = relPath.endsWith('.md') ? relPath.slice(0, -3) : relPath;
     const content = fs.readFileSync(file, 'utf8');
     let match;
     const seenLinks = new Set();
@@ -86,12 +94,12 @@ function buildGraph() {
       const targetName = match[1].trim();
       const targetKey = targetName.toLowerCase();
       
-      if (fileMap.has(targetKey) && targetName !== sourceName && !seenLinks.has(targetKey)) {
-        seenLinks.add(targetKey);
-        links.push({
-          source: sourceName,
-          target: fileMap.get(targetKey).id
-        });
+      if (fileMap.has(targetKey) && !seenLinks.has(targetKey)) {
+        const targetNode = fileMap.get(targetKey);
+        if (targetNode.id !== sourceId) {
+          seenLinks.add(targetKey);
+          links.push({ source: sourceId, target: targetNode.id });
+        }
       }
     }
   }

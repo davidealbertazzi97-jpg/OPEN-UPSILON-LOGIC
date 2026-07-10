@@ -556,7 +556,7 @@ async function renderGraph() {
         .on('drag', dragged)
         .on('end', dragended))
       .on('click', (event, d) => {
-        const file = filesList.find(f => f.name.replace('.md', '') === d.id);
+        const file = filesList.find(f => f.path.replace(/\\/g, '/').replace('.md', '') === d.id);
         if (file) selectFile(file);
       });
 
